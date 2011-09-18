@@ -1,0 +1,19 @@
+diff -up html2ps-1.0b5/debian/config/html2psrc.config html2ps-1.0b5/debian/config/html2psrc
+--- html2ps-1.0b5/debian/config/html2psrc.config	2008-04-19 00:34:31.000000000 +0200
++++ html2ps-1.0b5/debian/config/html2psrc	2008-04-19 00:34:57.000000000 +0200
+@@ -5,14 +5,11 @@
+     ImageMagick: 1;
+     PerlMagick: 1;
+     TeX: 1;
++    dvips: 1;
+     Ghostscript: 1;
+-    check: weblint;
+     libwww-perl: 1;
+     path: "/usr/bin";
+   }
+-  paper {
+-    type: letter;
+-  }
+   hyphenation {
+     en {
+       file: "/usr/share/texmf-texlive/tex/generic/hyphen/hyphen.tex";

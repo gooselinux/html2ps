@@ -1,0 +1,37 @@
+commit 8f751cd2b814da09aa98b66478c5d9d3e1f3db9b
+Author: Petr Písař <petr.pisar@atlas.cz>
+Date:   Wed Apr 28 17:33:05 2010 +0200
+
+    Fix SSI directory traversal bug
+    
+    html2ps-1.0b5 allows to step up with ".." to any directory. See
+    <http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=548633>. This flaw has been
+    fixed by upstream 1.0b6 version but introduced a regression. This patch solves
+    the bug in better way.
+    
+    Because this is a backport, we will not disbale SSI by default as upstream did
+    in newer version.
+
+diff --git a/html2ps b/html2ps
+index c9eb875..ec86bd5 100755
+--- a/html2ps
++++ b/html2ps
+@@ -2525,7 +2525,8 @@ sub Subst{
+     while(/<!--#(include|config|echo)\s+(\w+)\s*="([^"]+)"\s*-->/) {
+       $inc="";
+       $file=$3;
+-      if($1 eq "include" && (substr($file,0,1) ne "/" || $opt_r)) {
++      my ($prefix, $suffix) = ($`,$');
++      if($1 eq "include" && ($file !~m"^/|\.\." || $opt_r)) {
+         if(substr($file,0,1) ne "/") {
+           $file=$B2.$file;
+         } elsif($2 eq "virtual") {
+@@ -2545,7 +2546,7 @@ sub Subst{
+       } elsif ($1 eq "echo") {
+         $inc=$var{$3};
+       }
+-      $_=$`.$inc.$';
++      $_=$prefix.$inc.$suffix;
+     }
+   }
+   s/(&shy;?|&#173;?|<!--hy-->)/)HY(/g;

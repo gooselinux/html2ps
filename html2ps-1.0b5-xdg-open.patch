@@ -1,0 +1,12 @@
+diff -up html2ps-1.0b5/contrib/xhtml2ps/xhtml2ps.xdg-open html2ps-1.0b5/contrib/xhtml2ps/xhtml2ps
+--- html2ps-1.0b5/contrib/xhtml2ps/xhtml2ps.xdg-open	2008-04-18 23:33:50.000000000 +0200
++++ html2ps-1.0b5/contrib/xhtml2ps/xhtml2ps	2008-04-18 23:34:05.000000000 +0200
+@@ -804,7 +804,7 @@ proc UT_Config {} {
+   array set stusr {
+     command     "html2ps"
+     checker     "weblint -x Netscape"
+-    viewer      "ghostview -magstep -2 -a4"
++    viewer      "xdg-open"
+     printcmd    "lp"
+     filepcmd    "exec cp"
+     orientation " "
